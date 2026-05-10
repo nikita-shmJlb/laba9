@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Мои книги</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fffbdb;
+            font-family: Arial;
+            margin: 20px;
+        }
+        .container {
+            font-family: 'Segoe UI';
+            background: #cdc7e5;
+            padding: 20px;
+            max-width: 700px;
+            margin: auto;
+            border-radius: 15px
+        }
+        input, button {
+            margin: 5px 0;
+            padding: 5px;
+            border-radius: 5px
+        }
+        .book {
+            border: 1px solid #7776bc;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 15px
+        }
+        .delete {
+            color: rgb(183, 26, 26);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Список прочитанных книг</h1>
+    <p>Добавляйте книги, которые прочитали</p>
+
+    <form method="POST" action="/add">
+        <div>
+            <label>Автор:</label><br>
+            <input type="text" name="author" required>
+        </div>
+        <div>
+            <label>Название:</label><br>
+            <input type="text" name="name" required>
+        </div>
+        <button type="submit">Добавить книгу</button>
+    </form>
+
+    <hr>
+
+    <h2>Мои книги:</h2>
+
+    {% if books %}
+        {% for book in books %}
+            <div class="book">
+                <strong><i>{{ book.name }}</i></strong><br>
+                Автор: {{ book.author }}<br>
+                <a href="/delete/{{ book.id }}" class="delete" onclick="return confirm('Удалить?')">Удалить</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Пока нет книг. Добавьте первую!</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
